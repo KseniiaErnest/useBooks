@@ -1,13 +1,75 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
+/*#C9CCD5 */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size: 100%;
+}
+
+body {
+  padding: 1.5rem;
+  font-family: Agbalumo;
+  background-color: #E4D8DC;
+}
+.nav-bar {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #93B5C6;
+  width: 95%;
+  padding: 0.7rem 0;
+  border-radius: 5px;
+  color: #FFE3E3;
+  height: 4rem;
+  
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 1rem;
+}
+
+.number-result {
+  padding-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.search {
+  font-family: Agbalumo;
+  padding: 0.3rem 0.7rem;
+  width: 50%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  background-color: #a7ccdf;
+  color: #FFE3E3;
+}
+
+.search::placeholder {
+  color: #ffe3e385;
+}
+
+.main {
+display: flex;
+margin-top: 2rem;
+height: calc(100vh - 4.5rem - 3 * 1.5rem);
+justify-content: center;
+gap: 1.5rem;
+}
+
+.box {
+  width: 32rem;
+  max-width: 32rem;
+  background-color: #FFE3E3;
+  border-radius: 11px;
+  
+
 }
