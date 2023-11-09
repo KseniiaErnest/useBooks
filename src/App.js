@@ -1,10 +1,13 @@
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Box from "./components/Box";
+import { useEffect, useState } from "react";
+import BooksList from "./components/BooksList";
+import SearchBar from "./components/SearchBar";
 
 const tempBooksData = [
   {
-    title: "The Great Gatsby", 
+  title: "The Great Gatsby", 
   author: "F. Scott Fitzgerald", 
   genre: "Classic",
   cover: 'https://i0.wp.com/americanwritersmuseum.org/wp-content/uploads/2018/02/CK-3.jpg?resize=267%2C400&ssl=1',
@@ -38,16 +41,47 @@ const tempReadBooks = [
     }
 ]
 
+// const apiUrl = `https://openlibrary.org/api/books?bibkeys=title:${encodeURIComponent(titleToSearch)}&format=json`;
+
 export default function App() {
 
+  const [books, setBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(function () {
+    async function fetcthBooks() {
+     try {
+      const res = await fetch(`https://openlibrary.org/api/books?bibkeys=title:${encodeURIComponent(searchQuery)}&format=json`);
+
+      if (!res.ok) throw new Error('Something went wrong with fetchin books');
+
+      const data = await res.json();
+      const bookData = data[`title:${searchQuery.toLowerCase()}`];
+      console.log(bookData);
+
+      if (bookData) {
+        setBooks(bookData);
+      } else {
+        setBooks([]);
+      }
+
+     } catch(err) {
+console.log(err);
+     }
+    }
+
+    fetcthBooks();
+  }, [searchQuery])
 
   return (
     <div>
-<Navbar />
+<Navbar >
+  <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+</Navbar>
 
 <Main>
   <Box>
-
+<BooksList books={books} />
   </Box>
 
   <Box>

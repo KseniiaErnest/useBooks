@@ -1,4 +1,5 @@
-export default function Navbar() {
+export default function Navbar({ children }) {
+
 
   return (
     <nav className="nav-bar">
@@ -6,7 +7,7 @@ export default function Navbar() {
         <span role="img">📖</span>
         <h1>useBooks</h1>
       </div>
-      <input className="search" type="text" placeholder="Search books..."  />
+      {children}
       <p className="number-result">Found X results</p>
     </nav>
   )

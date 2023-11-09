@@ -73,3 +73,26 @@ gap: 1.5rem;
   
 
 }
+
+.books-list {
+  list-style: none;
+  padding: 0.5rem 0;
+  
+
+}
+
+.book-item {
+  display: flex;
+  gap: 1.4rem;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #c4b3b346;
+}
+
+.book-item img {
+  width: 4.7rem;
+}
+
+.book-details {
+  color: #265064;
+}
