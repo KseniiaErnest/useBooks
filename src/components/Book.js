@@ -2,11 +2,11 @@ export default function Book( {book} ) {
 
   return(
     <li className="book-item">
-      <img src={book.cover} alt={book.title} />
+      <div>📖</div>
       <div className="book-details">
       <h3>{book.title}</h3>
-      <h4>{book.author}</h4>
-      <h5>{book.genre}</h5>
+      <h4>{book.author_name}</h4>
+      <h5>First publish year: {book.first_publish_year}</h5>
       </div>
     </li>
   )

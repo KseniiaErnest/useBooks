@@ -4,6 +4,8 @@ import Box from "./components/Box";
 import { useEffect, useState } from "react";
 import BooksList from "./components/BooksList";
 import SearchBar from "./components/SearchBar";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 const tempBooksData = [
   {
@@ -41,37 +43,48 @@ const tempReadBooks = [
     }
 ]
 
-// const apiUrl = `https://openlibrary.org/api/books?bibkeys=title:${encodeURIComponent(titleToSearch)}&format=json`;
+// const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}`);
 
 export default function App() {
 
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(function () {
     async function fetcthBooks() {
+      
      try {
-      const res = await fetch(`https://openlibrary.org/api/books?bibkeys=title:${encodeURIComponent(searchQuery)}&format=json`);
+      setIsloading(true);
+      setError('')
+      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}`);
 
-      if (!res.ok) throw new Error('Something went wrong with fetchin books');
+      if (!res.ok) throw new Error('Something went wrong with fetching books');
+
+   
 
       const data = await res.json();
-      const bookData = data[`title:${searchQuery.toLowerCase()}`];
+      const bookData = data.docs.slice(0, 5);
       console.log(bookData);
-
-      if (bookData) {
-        setBooks(bookData);
-      } else {
-        setBooks([]);
-      }
-
-     } catch(err) {
-console.log(err);
-     }
+if (bookData.length <= 0) throw new Error('Book not found');
+    setBooks(bookData);
+    
+  }
+  catch(err) {
+    console.error(err.message);
+setError(err.message);
+    } finally {
+      setIsloading(false);
     }
-
+  }
+  if (!searchQuery.length) {
+    setBooks([]);
+    setError('');
+    return;
+  }
     fetcthBooks();
-  }, [searchQuery])
+  }, [searchQuery]);
 
   return (
     <div>
@@ -81,7 +94,12 @@ console.log(err);
 
 <Main>
   <Box>
-<BooksList books={books} />
+
+{/* {isLoading ? <Loader /> : <BooksList books={books} />} */}
+{isLoading && <Loader />}
+{!isLoading && !error && <BooksList books={books} />}
+{error && <Error message={error} />}
+
   </Box>
 
   <Box>
