@@ -6,6 +6,9 @@ import BooksList from "./components/BooksList";
 import SearchBar from "./components/SearchBar";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
+import ReadBooksSummary from "./components/ReadBooksSummary";
+import ReadBooksList from "./components/ReadBooksList";
+import BookDetails from "./components/BookDetails";
 
 const tempBooksData = [
   {
@@ -34,12 +37,14 @@ const tempReadBooks = [
      author: "Jane Austen",
       genre: "Romance",
       cover: 'https://theperksofbeingnourablog.files.wordpress.com/2021/01/pride-and-prejudice-barnes-noble-collectible-editions-1.jpg',
+      key: 1,
     },
   {
     title: "The Catcher in the Rye",
      author: "J.D. Salinger",
       genre: "Coming-of-age",
       cover: 'https://media.npr.org/assets/artslife/books/2009/10/catcher_custom-853c2f7a4f9f9acaa8647dfdc7b9796555ad54a2-s1100-c50.jpg',
+      key: 2,
     }
 ]
 
@@ -51,6 +56,18 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState('');
+
+  const [readBooks, setReadBooks] = useState(tempReadBooks);
+
+  const [selectedId, setSelectedId] = useState(null);
+
+  function handleSelectBook(id) {
+    setSelectedId((currentId) => (id === currentId ? null : id));
+  };
+
+  function handleCloseBook() {
+    setSelectedId(null);
+  };
 
   useEffect(function () {
     async function fetcthBooks() {
@@ -66,7 +83,7 @@ export default function App() {
 
       const data = await res.json();
       const bookData = data.docs.slice(0, 5);
-      console.log(bookData);
+      console.log(bookData.key);
 if (bookData.length <= 0) throw new Error('Book not found');
     setBooks(bookData);
     
@@ -97,14 +114,25 @@ setError(err.message);
 
 {/* {isLoading ? <Loader /> : <BooksList books={books} />} */}
 {isLoading && <Loader />}
-{!isLoading && !error && <BooksList books={books} />}
+{!isLoading && !error && <BooksList books={books} onSelectBook={handleSelectBook}  />}
 {error && <Error message={error} />}
 
   </Box>
 
   <Box>
-
+{
+  selectedId ?
+  ( <BookDetails selectedId={selectedId} onCloseBook={handleCloseBook} />) 
+  : 
+  (<>
+    <ReadBooksSummary />
+<ReadBooksList readBooks={readBooks}  />
+  </>
+    
+)
+}
   </Box>
+ 
 
 </Main>
     </div>

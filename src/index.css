@@ -28,6 +28,7 @@ body {
   color: #FFE3E3;
   height: 4rem;
   
+  
 }
 
 .logo {
@@ -79,6 +80,12 @@ gap: 1.5rem;
 
 }
 
+.hover:hover {
+  cursor: pointer;
+  background-color: #ffe6e6 ;
+  transition: all 0.3s;
+}
+
 .book-item {
   display: flex;
   gap: 1.4rem;
@@ -100,4 +107,45 @@ gap: 1.5rem;
   text-transform: uppercase;
   margin-top: 4rem;
   font-size: 2.5rem;
+}
+
+.read-summary {
+  background-color: #ffe9e9;
+  border-radius: 11px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 25px 20px -20px;
+  padding: 0.9rem 1.1rem;
+}
+
+.read-summary h3 {
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.read-summary-details {
+  display: flex;
+  gap: 4.5rem;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-close-book {
+  
+  align-self: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #265064;
+  color: #FFE3E3;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.details {
+  line-height: 1.4;
+  font-size: 1.4rem;
 }

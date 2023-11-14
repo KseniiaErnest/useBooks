@@ -1,7 +1,7 @@
-export default function Book( {book} ) {
+export default function Book( {book, onSelectBook} ) {
 
   return(
-    <li className="book-item">
+    <li  className="book-item hover" onClick={() => onSelectBook(book.key)}>
       <div>📖</div>
       <div className="book-details">
       <h3>{book.title}</h3>
